@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // Asigansmos a contante los valores de conexion
-const URI = "mongodb+srv://dbUser:Suerte05@virtualgym.wxtmv.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const URI = "mongodb+srv://dbUser:Suerte05@virtualgym.wxtmv.mongodb.net/virtualgym?retryWrites=true&w=majority";
 //mongodb + srv: //dbUser:<password>@virtualgym.wxtmv.mongodb.net/<dbname>?retryWrites=true&w=majority
 
 //Iniciamos la conexion

@@ -71,5 +71,7 @@ app.get('/auth/google/callback',
 
 // Test de añadir a la base de datos...
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/*', (req, res) => res.sendFile(__dirname + '/public/build/index.html'))
 
 app.listen(Port, () => console.log("Servidor activo"));

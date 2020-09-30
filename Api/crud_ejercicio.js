@@ -91,6 +91,18 @@ route.get('/listado', async(req, res) => {
 })
 
 
+route.get('/buscar/:id', async(req, res) => {
+
+    const {id} = req.params
+    console.log(id)
+    // Buscamos todos
+    Ejercicio.findById(id)
+    .then(ejercicio => res.status(200).json({ejercicio}))
+    .catch(err => res.status(500).json({err}))
+
+})
+
+
 // Baja del ejercicio
 // 200 - se dio de baja correcctamente
 // 408 - Error no se pudo de dar de baja
