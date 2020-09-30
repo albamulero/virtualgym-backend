@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const connectDB = require("./conexion.js");
 const passport = require('passport');
@@ -12,7 +13,7 @@ app.use(cors({
     origin: [process.env.FRONTENDPOINT]
 }))
 
-const Port = process.env.Port || 3000;
+const Port = process.env.PORT || 3000;
 
 
 // Conexion a la base de datos...
