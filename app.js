@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDB = require("./conexion.js");
 const passport = require('passport');
+const path = require('path');
 const cookieSession = require('cookie-session')
 var cors = require('cors')
 require('./Api/passport')
