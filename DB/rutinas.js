@@ -6,8 +6,7 @@ var Ejercicio = mongoose.model('ejercicio');
 const rutina = new mongoose.Schema({
     codigo: {
         type: String,
-        require,
-        unique: true
+        require
     },
     type: {
         type: String,

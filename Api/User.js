@@ -12,18 +12,14 @@ const route = express.Router();
 // Bcrypt to encrypt passwords
 
 const bcrypt = require('bcrypt');
+const user = require('../DB/User');
+const { restart } = require('nodemon');
 const bcryptSalt = 10;
 
 
 
 route.post('/adduser', async(req, res) => {
-    const { nombre, apellidos, email, password } = req.body;
-
-    // Copromobar que que esten los campos
-    //if (!email || !passport) {
-        //res.status(500).end();
-        //return;
-    //}
+    const { nombre, apellidos, email, password } = req.body
 
 
     // Añadimos a la base de datos...
@@ -40,25 +36,26 @@ route.post('/adduser', async(req, res) => {
     });
 
 })
+route.post('/login', async(req, res) => {
 
-route.get('/login', (req, res) => {
-    const { email, password } = req.body;
-
-    // Copromobar que que esten los campos
-    if (!email || !passport) {
-        res.render('auth/login', { errorMessage: 'Introducir email y password' });
-        return;
-    }
-
-    // Vamos a buscar si ya se registro...
+    var email = req.body.email;
+    var password = req.body.password;
 
 
+    User.findOne({ email: email }, function(err, usuario) {
+        if (err) { res.status(400).end() }
+        if (!usuario) {
+            res.status(400).end()
+        }
 
-});
+        //Comprobar la contraseña
+        //if (bcrypt.compareSync(password, usuario.password)) { res.status(200).end() } else { res.status(400).end() }
+
+    })
 
 
 
-
+})
 
 
 module.exports = route;

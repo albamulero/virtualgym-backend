@@ -21,6 +21,7 @@ const user = new mongoose.Schema({
         unique: true
 
     },
+    coach: String,
     password: { type: String },
     alta: { type: Date, default: Date.now },
     googleID: { type: String },

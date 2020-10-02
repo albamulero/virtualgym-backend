@@ -10,21 +10,24 @@ route.post('/alta', async(req, res) => {
     const { codigo, type, nombre, ejercicio } = req.body;
 
 
-    // Vamos a comprobar que los campos no estan vacios
-    if (!codigo || !type || !nombre || !ejercicio) {
-        res.render('/', { errorMessage: "Los campos deben de estar rellenos" });
-        return
-    }
-
     // Añadir a la base de datos
+    /*
+        let rutina = {}
+        rutina.codigo = codigo;
+        rutina.type = type;
+        rutina.nombre = nombre;
+        rutina.ejercicio = ejercicio;
+    */
+    
 
     let rutina = {}
-    rutina.codigo = codigo;
-    rutina.type = type;
-    rutina.nombre = nombre;
-    rutina.ejercicio = ejercicio;
+    rutina.codigo = '012';
+    rutina.type = 'Type';
+    rutina.nombre = 'Fuerza explosiva';
+    rutina.ejercicio = '5f753c5c0236a2c88b764ca5';
 
     let rutinaModel = new Rutina(rutina);
+
     await rutinaModel.save(function(err, doc) {
         if (err) return res.status(400).end();
         res.status(200).end();
@@ -49,7 +52,7 @@ route.post('/actualizacion', async(req, res) => {
         tren: tren,
         musculo: musculo,
         explicacion: explicacion,
-        enlacevideo: enlacevidio
+        enlacevideo: enlacevideo
     }
 
 

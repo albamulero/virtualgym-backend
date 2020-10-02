@@ -4,13 +4,21 @@ const connectDB = require("./conexion.js");
 const passport = require('passport');
 const path = require('path');
 const cookieSession = require('cookie-session')
+const mercadopago = require("mercadopago");
 var cors = require('cors')
 require('./Api/passport')
+
+//REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
+mercadopago.configurations.setAccessToken("TEST-3863757959227190-100100-1622baa1f59cabafe1b354a9b2144b99-653417012");
+
+
+
+
 
 var app = express()
 app.use(cors({
     credentials: true,
-    origin: [process.env.FRONTENDPOINT]
+    origin: ["http://localhost:3001"]
 }))
 
 const Port = process.env.PORT || 3000;
@@ -69,6 +77,48 @@ app.get('/auth/google/callback',
     });
 
 
+///////////////////////////////////
+//
+// Mercado Pago.....
+//
+//////////////////////////////////
+
+app.post("/process_payment", (req, res) => {
+
+    var payment_data = {
+        transaction_amount: Number(req.body.transactionAmount),
+        token: req.body.token,
+        description: req.body.description,
+        installments: Number(req.body.installments),
+        payment_method_id: req.body.paymentMethodId,
+        issuer_id: req.body.issuer,
+        payer: {
+            email: req.body.email,
+            identification: {
+                type: req.body.docType,
+                number: req.body.docNumber
+            }
+        }
+    };
+
+    mercadopago.payment.save(payment_data)
+        .then(function(response) {
+            res.status(response.status).json({
+                status: response.body.status,
+                status_detail: response.body.status_detail,
+                id: response.body.id
+            });
+        })
+        .catch(function(error) {
+            res.status(response.status).send(error);
+        });
+});
+
+
+
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
 
 
 // Test de añadir a la base de datos...
